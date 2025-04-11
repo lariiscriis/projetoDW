@@ -1,0 +1,28 @@
+{% extends 'template.html' %}
+
+{% load static %}
+
+
+
+{% block titulo %} HoneyHug {% endblock %}
+
+{% block conteudo %}
+<section class="container py-5  mt-5" id="SecaoIndex1">
+  <div class="row align-items-center">
+      <div class="col-lg-6 text-center text-lg-start">
+          <h1 class="fw">HoneyHug 🧸</h1>
+          <p class="text-muted">
+              Descubra um mundo de fofura e carinho com nossos ursinhos de pelúcia!  
+              Feitos com todo amor e maciez para tornar cada abraço inesquecível.  
+              Venha conhecer nossa coleção e encontre seu novo companheiro fofinho!  
+          </p>
+          <a href="{% url 'addUsuario'%}" class="btn btn-warning btn-lg">Cadastre-se</a>
+      </div>
+      
+      <div class="col-lg-6 text-center">
+          <img src="{% static 'assets/ursinhos3.png' %}" alt="Ursinho fofo" class="img-fluid rounded">
+      </div>
+</section>
+</div>
+
+{% endblock %}

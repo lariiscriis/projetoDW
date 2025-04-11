@@ -1,0 +1,26 @@
+{% extends 'template.html' %}
+
+{% load static %}
+
+
+{% block titulo %} Usuários {% endblock %}
+
+{% block conteudo %}
+<div class="users d-flex flex-column align-items-center justify-content-center mt-2 mb-2">
+    <img src="{% static 'assets/users.png' %}" alt="">
+    <h1 id="h1Usuarios">Usuários</h1>
+</div>
+    <table class="table table-hover p-3 m-auto" style="width: 40%;">
+        <tr id="trUsuarios">
+            <th>Nome</th>
+            <th>E-mail</th>
+        </tr>
+        {% for user in listUsuarios %}
+            <tr>
+                <td>{{user.nome}}</td>
+                <td>{{user.email}}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}
