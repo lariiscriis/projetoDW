@@ -1,0 +1,26 @@
+{% extends 'template.html' %}
+
+{% load static %}
+
+
+{% block titulo %} Produtos {% endblock %}
+
+{% block conteudo %}
+<a href="{% url 'cadastrarProduto' %}"> <button  id="btnEditar"> Cadastrar Produto </button> </a>
+    <table class="table table-hover p-3 m-auto" style="width: 40%;">
+        <tr id="trUsuarios">
+            <th>Produto</th>
+            <th>Imagem</th>
+            <th colspan= "2">Ações</th>
+        </tr>
+        {% for produto in listProdutos %}
+            <tr>
+                <td>{{produto.nomeProduto}}</td>
+                <td>{{produto.imagemProduto}}</td>
+                <td><a href="{% url 'excluirProduto' produto.id %}"> <button  id="btnExcluir"> Excluir </button> </a></td>
+                <td><a href="{% url 'editarUsuario' produto.id %}"> <button id="btnEditar"> Editar</button> </a></td>
+            </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}

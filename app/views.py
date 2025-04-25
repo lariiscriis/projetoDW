@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.template import loader
-from app.models import Usuario
-from app.forms import formUsuario
+from app.models import Usuario, Produto
+from app.forms import formUsuario, formProduto
 # Create your views here.
 
 def exibirUsuarios(request):
@@ -39,11 +39,20 @@ def editarUsuario(request, id_usuario):
     return render(request, "editar-usuario.html", {'form': formUser})
 
 def cadastrarProduto(request):
-    formProduto = formProduto(request.POST or None)
-    if request.POST:
-        if formProduto.is_valid():
-            formProduto.save()
-            return redirect("cards-produtos.html")
+    if request.method == 'POST':
+        formProduct = formProduto(request.POST, request.FILES)
+        if formProduct.is_valid():
+            formProduct.save()
+            return redirect("listarProdutos")
         
-    return render(request, "cadatrar-produto.html", {'form':formProduto})
+    return render(request, "cadastrar-produto.html", {'form':formProduto})
 
+
+def listarProdutos(request):
+    produtos = Produto.objects.all().values()
+    return render(request, "listar-produtos.html", {'listProdutos': produtos})
+
+def excluirProduto(request, id_produto):
+    produto = Produto.objects.get(id=id_produto)
+    produto.delete()
+    return redirect("listarProdutos")

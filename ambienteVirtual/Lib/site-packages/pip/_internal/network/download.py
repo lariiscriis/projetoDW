@@ -1,12 +1,13 @@
 """Download files with progress indicators.
 """
-import cgi
+
+import email.message
 import logging
 import mimetypes
 import os
 from typing import Iterable, Optional, Tuple
 
-from pip._vendor.requests.models import CONTENT_CHUNK_SIZE, Response
+from pip._vendor.requests.models import Response
 
 from pip._internal.cli.progress_bars import get_download_progress_renderer
 from pip._internal.exceptions import NetworkConnectionError
@@ -42,7 +43,7 @@ def _prepare_download(
     logged_url = redact_auth_from_url(url)
 
     if total_length:
-        logged_url = "{} ({})".format(logged_url, format_size(total_length))
+        logged_url = f"{logged_url} ({format_size(total_length)})"
 
     if is_from_cache(resp):
         logger.info("Using cached %s", logged_url)
@@ -55,12 +56,12 @@ def _prepare_download(
         show_progress = False
     elif not total_length:
         show_progress = True
-    elif total_length > (40 * 1000):
+    elif total_length > (512 * 1024):
         show_progress = True
     else:
         show_progress = False
 
-    chunks = response_chunks(resp, CONTENT_CHUNK_SIZE)
+    chunks = response_chunks(resp)
 
     if not show_progress:
         return chunks
@@ -81,12 +82,13 @@ def parse_content_disposition(content_disposition: str, default_filename: str) -
     Parse the "filename" value from a Content-Disposition header, and
     return the default filename if the result is empty.
     """
-    _type, params = cgi.parse_header(content_disposition)
-    filename = params.get("filename")
+    m = email.message.Message()
+    m["content-type"] = content_disposition
+    filename = m.get_param("filename")
     if filename:
         # We need to sanitize the filename to prevent directory traversal
         # in case the filename contains ".." path parts.
-        filename = sanitize_content_filename(filename)
+        filename = sanitize_content_filename(str(filename))
     return filename or default_filename
 
 

@@ -19,13 +19,13 @@
         <div class="container-fluid">
             <div class="divNav">
                  <img src="{% static 'assets/logo.png' %}" class="d-inline-block align-top" alt="">
-                 <a class="navbar-brand">HoneyHug</a>
+                 <a class="navbar-brand" href="{% url 'app' %}">HoneyHug</a>
                 
           </div>
           <div class="navbar-nav" id="divItensNav" >
-            <a class="nav-item nav-link" href="#">Início</a>
+            <a class="nav-item nav-link" href="{% url 'app' %}">Início</a>
             <a class="nav-item nav-link" href="#">Sobre Nós</a>
-            <a class="nav-item nav-link" href="{% url 'cards-produtos.html' %}">Produtos</a>
+            <a class="nav-item nav-link" href="{% url 'listarProdutos' %}">Produtos</a>
           </div>
 
           <form class="d-flex" role="search">
@@ -51,9 +51,9 @@
       </a>
 
           <ul class="nav col-md-4 justify-content-end">
-              <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Início</a></li>
+              <li class="nav-item"><a href="{% url 'app' %}" class="nav-link px-2 text-muted">Início</a></li>
               <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Sobre Nós</a></li>
-              <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Produtos</a></li>
+              <li class="nav-item"><a href="{% url 'listarProdutos' %}" class="nav-link px-2 text-muted">Produtos</a></li>
               <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Suporte</a></li>
           </ul>
 </div>
