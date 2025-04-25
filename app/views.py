@@ -38,4 +38,12 @@ def editarUsuario(request, id_usuario):
         
     return render(request, "editar-usuario.html", {'form': formUser})
 
+def cadastrarProduto(request):
+    formProduto = formProduto(request.POST or None)
+    if request.POST:
+        if formProduto.is_valid():
+            formProduto.save()
+            return redirect("cards-produtos.html")
+        
+    return render(request, "cadatrar-produto.html", {'form':formProduto})
 
