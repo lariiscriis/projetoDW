@@ -21,3 +21,21 @@ def addUsuario(request):
             return redirect("exibirUsuarios")
         
     return render(request, "add-usuario.html", {'form':formUser})
+
+def excluirUsuario(request, id_usuario):
+    usuario = Usuario.objects.get(id=id_usuario)
+    usuario.delete()
+    return redirect("exibirUsuarios")
+
+def editarUsuario(request, id_usuario):
+    usuario = Usuario.objects.get(id=id_usuario)
+    formUser = formUsuario(request.POST or None, instance=usuario)
+
+    if request.POST:
+        if formUser.is_valid():
+            formUser.save()
+            return redirect("exibirUsuarios")
+        
+    return render(request, "editar-usuario.html", {'form': formUser})
+
+

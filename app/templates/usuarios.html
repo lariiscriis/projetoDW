@@ -14,11 +14,14 @@
         <tr id="trUsuarios">
             <th>Nome</th>
             <th>E-mail</th>
+            <th colspan= "2">Ações</th>
         </tr>
         {% for user in listUsuarios %}
             <tr>
                 <td>{{user.nome}}</td>
                 <td>{{user.email}}</td>
+                <td><a href="{% url 'excluirUsuario' user.id %}"> <button  id="btnExcluir"> Excluir </button> </a></td>
+                <td><a href="{% url 'editarUsuario' user.id %}"> <button id="btnEditar"> Editar</button> </a></td>
             </tr>
         {% endfor %}
     </table>

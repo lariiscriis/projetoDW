@@ -218,5 +218,27 @@ input:focus{
     transition: all .8s;
 }
 
+#btnEditar{
+    background-color: #f8b1b1 !important;
+    border-color: #FF9394 !important;
+    border-radius: 5px;
+    color: white !important;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    font-family: "Poppins", sans-serif;
+    transition: all .8s;
+}
+
+#btnExcluir{
+    background-color: #f86365d8 !important;
+    border-color: #fa3b3f !important;
+    border-radius: 5px;
+    color: white !important;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    font-family: "Poppins", sans-serif;
+    transition: all .8s;
+}
+
 
 
