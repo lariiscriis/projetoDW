@@ -14,11 +14,12 @@
             <th colspan= "2">Ações</th>
         </tr>
         {% for produto in listProdutos %}
-            <tr>
+            <tr id="trProd">
                 <td>{{produto.nomeProduto}}</td>
-                <td>{{produto.imagemProduto}}</td>
+                <td><img src="/media/{{ produto.imagemProduto }}"  alt=""  style="width: 100px; height: auto;"></td>
                 <td><a href="{% url 'excluirProduto' produto.id %}"> <button  id="btnExcluir"> Excluir </button> </a></td>
-                <td><a href="{% url 'editarUsuario' produto.id %}"> <button id="btnEditar"> Editar</button> </a></td>
+               <td><a href="#"> <button id="btnEditar"> Editar</button> </a></td> 
+
             </tr>
         {% endfor %}
     </table>

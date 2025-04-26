@@ -161,6 +161,7 @@ th, td {
 
 td{
     border: 2px solid pink;
+    
 }
 
 th {
@@ -169,6 +170,11 @@ th {
     font-family: "Poppins", serif;
     color: white;
 }
+
+tr{
+    vertical-align: middle;
+}
+
 
 #ContainerLogin{
     background-color: #FFEBB8;
