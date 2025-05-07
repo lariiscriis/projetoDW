@@ -6,7 +6,7 @@
 {% block titulo %} Produtos {% endblock %}
 
 {% block conteudo %}
-<a href="{% url 'cadastrarProduto' %}"> <button  id="btnEditar"> Cadastrar Produto </button> </a>
+<a href="{% url 'cadastrarProduto' %}" style=" justify-content: center; display: flex; margin: 3em; text-decoration: none;"><button  id="btnEditar"> Cadastrar Produto </button> </a>
     <table class="table table-hover p-3 m-auto" style="width: 40%;">
         <tr id="trUsuarios">
             <th>Produto</th>
@@ -18,7 +18,7 @@
                 <td>{{produto.nomeProduto}}</td>
                 <td><img src="/media/{{ produto.imagemProduto }}"  alt=""  style="width: 100px; height: auto;"></td>
                 <td><a href="{% url 'excluirProduto' produto.id %}"> <button  id="btnExcluir"> Excluir </button> </a></td>
-               <td><a href="#"> <button id="btnEditar"> Editar</button> </a></td> 
+               <td><a href="{% url 'editarProduto' produto.id %}"> <button id="btnEditar"> Editar</button> </a></td> 
 
             </tr>
         {% endfor %}

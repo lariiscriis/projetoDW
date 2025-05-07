@@ -2,8 +2,48 @@
 
 {% load static %}
 
+{% block head %}
+<script src="https://kit.fontawesome.com/30dea9d32e.js" crossorigin="anonymous"></script>
+{% endblock %}
+
 {% block 'titulo' %} Produtos {% endblock %}
 
 {% block conteudo %}
 
+<!-- <section class="py-5" id="Section-posts"> -->
+<h1>Produtos</h1>
+<div class="container" id="blog-container">
+    <!-- for para loop dos posts entra aqui  -->
+     {% for produto in listProdutos %}
+    <div class="blog-card">
+        <div class="blog-image">
+            <img src="/media/{{ produto.imagemProduto }}" alt="Card-imagem">
+            <div class="blog-data"><i class="fas fa-heart"></i></div>
+        </div>
+        <div class="blog-content">
+            <h2 class="blog-title">{{produto.nomeProduto}}</h2>
+            <p class="blog-description">
+                {{produto.descricaoProduto}}
+            </p>
+            <div class="blog-footer">
+                <div class="author-image">
+                <img src="{% static 'assets/logo.png' %}" alt="">
+                <span class="blog-author">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </span>
+            </div>                
+                <a href="#" class="read-more">{{produto.precoProduto}}</a>
+                <a href="#" class="read-more">Leia Mais</a>
+            </div>
+        </div>
+    </div>
+    <!-- for para loop dos posts termina aqui -->
+    {% endfor %}
+    
+</div>
+<!-- </section> -->
 {% endblock %}

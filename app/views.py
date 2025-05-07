@@ -56,3 +56,18 @@ def excluirProduto(request, id_produto):
     produto = Produto.objects.get(id=id_produto)
     produto.delete()
     return redirect("listarProdutos")
+
+def editarProduto(request, id_produto):
+    produto = Produto.objects.get(id=id_produto)
+    formProd = formProduto(request.POST or None, instance=produto)
+
+    if request.POST:
+        if formProd.is_valid():
+            formProd.save()
+            return redirect("listarProdutos")
+        
+    return render(request, "editar-produto.html", {'form': formProduto})
+
+def cardsProdutos(request):
+    produtos = Produto.objects.all().values()
+    return render(request, "cards-produtos.html", {'listProdutos': produtos})
