@@ -390,10 +390,11 @@ input:focus{
      1px -1px 0 #43706b,
     -1px  1px 0 #43706b,
      1px  1px 0 #43706b;
+     max-width: 180px;
     }
 
 .blog-title:hover{
-    color: #5f5b5b;
+    color: #e5f0ee;
 }
 
 .blog-description{

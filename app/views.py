@@ -66,7 +66,7 @@ def editarProduto(request, id_produto):
             formProd.save()
             return redirect("listarProdutos")
         
-    return render(request, "editar-produto.html", {'form': formProduto})
+    return render(request, "editar-produto.html", {'form': formProd})
 
 def cardsProdutos(request):
     produtos = Produto.objects.all().values()
