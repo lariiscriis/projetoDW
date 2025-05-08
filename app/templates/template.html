@@ -15,7 +15,7 @@
 <body>
 
 
-    <nav class="navbar fixed-top bg-body-tertiary" id="nav">
+    <nav class="navbar bg-body-tertiary" id="nav">
         <div class="container-fluid">
             <div class="divNav">
                  <img src="{% static 'assets/logo.png' %}" class="d-inline-block align-top" alt="">
@@ -25,7 +25,7 @@
           <div class="navbar-nav" id="divItensNav" >
             <a class="nav-item nav-link" href="{% url 'app' %}">Início</a>
             <a class="nav-item nav-link" href="#">Sobre Nós</a>
-            <a class="nav-item nav-link" href="{% url 'listarProdutos' %}">Produtos</a>
+            <a class="nav-item nav-link" href="{% url 'cardsProdutos' %}">Produtos</a>
           </div>
 
           <form class="d-flex" role="search">
@@ -34,6 +34,9 @@
         </div>
         
       </nav>
+
+      <div class="page-container">
+
       <main>
         {% block conteudo %}
         {% endblock %}
@@ -41,7 +44,7 @@
 
 
 
-<footer class="footer bg-body-tertiary text-center text-lg-start fixed-bottom">
+<footer class="footer bg-body-tertiary text-center text-lg-start">
   <div class="container d-flex flex-wrap justify-content-between align-items-center">
         <div class="col-md-4 d-flex align-items-center">
           <span class="mb-3 mb-md-0 text-muted">© 2025, Larissa Cristina e Milene Almeida</span>
@@ -60,6 +63,7 @@
 
 
 </footer>
-    
+</div>
+
 </body>
 </html>

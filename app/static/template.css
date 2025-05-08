@@ -13,11 +13,25 @@ body{
     padding: 0;
     box-sizing: border-box;
     background-color: #ffb7a52c;
-    padding-top: 8em;
+    /* padding-top: 8em; */
 }
+
+
+.page-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+    margin-bottom: 2em;
+}
+
 
 #nav {
     background-color: var(--amarelo)  !important;
+    height: 5em;
 }
 
 #btn-login{
@@ -97,11 +111,13 @@ body{
     background-color: var(--amarelo) !important;
     font-family: "Poppins", sans-serif;
     font-size: 14px;
+    height: 4em;
+
 }
 
 #SecaoIndex1{
     background-color: #FFEBB8;
-    padding: 2em;
+    padding: 2em ;
     border-radius: 25px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -257,7 +273,6 @@ input:focus{
 
 /* cards-produtos */
 #Section-posts{
-    background-color: #fff !important;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -269,16 +284,16 @@ input:focus{
     text-align: center;
     margin-bottom: 10px;
     font-weight: 600;
-    margin-top: -2em;
+    font-family: "Cherry Bomb One", system-ui !important;
+    letter-spacing: 2px;
+    color: #C3E6E2;
+    text-shadow:
+    -1px -1px 0 #43706b,
+     1px -1px 0 #43706b,
+    -1px  1px 0 #43706b,
+     1px  1px 0 #43706b;
 }
 
-#Section-posts p{
-    font-size: 1em;
-    max-width: 600px;
-    /* text-align: center; */
-    margin: 0 auto 20px auto;
-    line-height: 1.6;
-}
 
 #blog-container{
     display: grid;
@@ -289,25 +304,28 @@ input:focus{
 }
 
 .blog-card{
-    background-color: #ecebeb;
+    background-color: #f7e2ddf5;
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
     transition: transform 0.3s, box-shadow 0.3s;
     display: flex;
     flex-direction: column;
+    border: 5px solid #FF9394;
+    font-family: 'Poppins', sans-serif;
+
 }
 
 .blog-card:hover{
     transform: translateY(-5px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 12px 24px rgba(172, 81, 96, 0.534);
     cursor: pointer;
 }
 
 .blog-image{
     position: relative;
     overflow: hidden;
-    height: 200px;
+    height: 300px;
 }
 
 .blog-image img{
@@ -321,16 +339,35 @@ input:focus{
     transform: scale(1.1);
 }
 
+.blog-price{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.precoProduto{
+    font-size: 2em;
+    font-weight: 600;
+    color: #d8e6b1;
+    text-shadow:
+    -1px -1px 0 #6f7c4b,
+     1px -1px 0 #6f7c4b,
+    -1px  1px 0 #6f7c4b,
+     1px  1px 0 #6f7c4b;
+     font-family: 'Cherry Bomb One', system-ui !important;
+     letter-spacing: 2px;
+    }
+
 .blog-data{
     position: absolute;
     top: 12px;
     left: 12px;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: #f8b1b1;
     color: #fff;
-    padding: 5px 10px;
+    padding: 5px 10px;  
     border-radius: 5px;
-    font-size: 0.8em;
-    font-weight: bold;
+    font-size: 1.3em;
 }
 
 .blog-content{
@@ -347,7 +384,13 @@ input:focus{
     margin-bottom: 15px;
     transition: color 0.3s ease;
     text-align: start;
-}
+    color: #C3E6E2;
+    text-shadow:
+    -1px -1px 0 #43706b,
+     1px -1px 0 #43706b,
+    -1px  1px 0 #43706b,
+     1px  1px 0 #43706b;
+    }
 
 .blog-title:hover{
     color: #5f5b5b;
@@ -380,9 +423,10 @@ input:focus{
 }
 
 .read-more{
+    background-color: #f8b1b1;
+    border-color: #FF9394 ;
     text-decoration: none;
-    color: #ecebeb;
-    background-color: #000000;
+    color: #000;
     padding: 10px 15px;
     border-radius: 5px;
     font-size: 14px;
@@ -390,9 +434,79 @@ input:focus{
 }
 
 .read-more:hover{
-    background-color: #333;
+    background-color: rgb(248, 154, 131) ;
 }
 
-.fab{
-    color: #000000;
+.fas{
+    color: #FFEBB8;
+    text-shadow:
+    -1px -1px 0 #000,
+     1px -1px 0 #000,
+    -1px  1px 0 #000,
+     1px  1px 0 #000;
+}
+
+
+@media screen and (min-width: 1200px) {
+    #ContainerLogin {
+        width: 25%;
+    }
+}
+
+@media screen and (max-width: 1199px) and (min-width: 768px) {
+    #ContainerLogin {
+        width: 50%;
+    }
+
+    #SecaoIndex1 h1 {
+        font-size: 50px;
+    }
+
+    #divItensNav {
+        flex-wrap: wrap;
+        gap: 0.5em;
+    }
+}
+
+@media screen and (max-width: 767px) {
+
+
+    #ContainerLogin {
+        width: 90%;
+        padding: 1.5em;
+    }
+
+    #SecaoIndex1 {
+        padding: 1.5em;
+    }
+
+    #SecaoIndex1 h1 {
+        font-size: 36px;
+        text-align: center;
+    }
+
+    #SecaoIndex1 p {
+        font-size: 16px;
+        text-align: center;
+    }
+
+    #divItensNav {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5em;
+    }
+
+    .divNav a {
+        font-size: 24px;
+    }
+
+    table {
+        font-size: 0.8rem;
+        overflow-x: auto;
+        display: block;
+    }
+
+    th, td {
+        padding: 8px;
+    }
 }

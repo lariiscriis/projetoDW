@@ -10,7 +10,7 @@
 
 {% block conteudo %}
 
-<!-- <section class="py-5" id="Section-posts"> -->
+<section class="py-5" id="Section-posts">
 <h1>Produtos</h1>
 <div class="container" id="blog-container">
     <!-- for para loop dos posts entra aqui  -->
@@ -18,16 +18,19 @@
     <div class="blog-card">
         <div class="blog-image">
             <img src="/media/{{ produto.imagemProduto }}" alt="Card-imagem">
-            <div class="blog-data"><i class="fas fa-heart"></i></div>
+            <div class="blog-data"><i class="far fa-heart"></i></div>
         </div>
         <div class="blog-content">
+            <div class="blog-price">
             <h2 class="blog-title">{{produto.nomeProduto}}</h2>
+            <p href="#" class="precoProduto">{{produto.precoProduto}}</p>
+        </div>
             <p class="blog-description">
                 {{produto.descricaoProduto}}
+
             </p>
             <div class="blog-footer">
                 <div class="author-image">
-                <img src="{% static 'assets/logo.png' %}" alt="">
                 <span class="blog-author">
                     <i class="fas fa-star"></i>
                     <i class="fas fa-star"></i>
@@ -36,8 +39,7 @@
                     <i class="fas fa-star"></i>
                 </span>
             </div>                
-                <a href="#" class="read-more">{{produto.precoProduto}}</a>
-                <a href="#" class="read-more">Leia Mais</a>
+                <a href="#" class="read-more">Adicionar ao Carrinho</a>
             </div>
         </div>
     </div>
@@ -45,5 +47,5 @@
     {% endfor %}
     
 </div>
-<!-- </section> -->
+</section>
 {% endblock %}
