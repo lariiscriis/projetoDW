@@ -13,6 +13,16 @@ class formUsuario(forms.ModelForm):
         }
 
 
+class formLogin(forms.ModelForm):
+    class Meta:
+        model = Usuario
+        fields = ('email', 'senha')
+        
+        widgets = {
+            'email': forms.TextInput(attrs={'class':'form-control mb-3' , 'placeholder': 'email'}),
+            'senha': forms.TextInput(attrs={'class': 'form-control mb-3', 'type': 'password', 'placeholder': 'senha'}),
+        }
+
 class formProduto(forms.ModelForm):
     class Meta:
         model = Produto

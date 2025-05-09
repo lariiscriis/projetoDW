@@ -269,7 +269,19 @@ input:focus{
     font-family: "Poppins", sans-serif;
     transition: all .8s;
 }
+/* 
+.editarProdForm{
+    width: 100em;
+} */
+ 
+a {
+    text-decoration: none;
+    color: black;
+}
 
+.navbar-brand:hover{
+    color: #FF9394;
+}
 
 /* cards-produtos */
 #Section-posts{
