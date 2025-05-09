@@ -1,4 +1,4 @@
-from datetime import timedelta
+from datetime import datetime, timedelta
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.template import loader
@@ -23,9 +23,12 @@ def login(request):
             try:
                 userLogin = Usuario.objects.get(email=_email,senha= _senha)
                 if userLogin is not None:
-
-                    request.session.set_expiry(timedelta(seconds=60))
+                    request.session.set_expiry(timedelta(seconds=30))
+                   
                     request.session['email'] = _email
+                    tempo_sessao = timedelta(seconds=30)
+                    tempo_sessao_segundos = tempo_sessao.total_seconds()
+                    request.session['tempo_sessao_segundos '] =  tempo_sessao_segundos
                     return redirect("dashboard")
             except Usuario.DoesNotExist:
                 return render(request, "login.html")
@@ -33,7 +36,16 @@ def login(request):
 
 def dashboard(request):
     _email = request.session.get("email")
-    return render(request, "dashboard.html", {'email' : _email})
+    tempo_sessao = request.session.get("tempo_sessao_segundos")
+    if _email is None:
+            return render(request, "index.html")
+    if tempo_sessao and tempo_sessao > timedelta(seconds=60) :
+        return render(request, "index.html")
+    else:
+        return render(request, "dashboard.html", {'email' : _email})
+
+        
+    
 
 def addUsuario(request):
     formUser = formUsuario(request.POST or None)
