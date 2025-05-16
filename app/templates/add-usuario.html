@@ -8,18 +8,46 @@
 
 <div class="users d-flex flex-column align-items-center justify-content-center mt-2 mb-2">
     <img src="{% static 'assets/users.png' %}" alt="">
-        <h1 id="h1Usuarios">Adicionar Usuário</h1>
+        <h1 id="h1Usuarios">Cadastrar Usuário</h1>
     </div>
 
 
 <div class="container d-flex align-items-center justify-content-center" >
     <form method="post" action="{% url 'addUsuario' %}" id="ContainerLogin">
         {% csrf_token %}
-        <div class="form-group">
-        {{form.as_p}}
-          <a href="{% url 'login' %}" class="CadastrarLink">Já tem uma conta ? Faça Login</a>
-        <input type="submit" value="Cadastrar" id="btnCadastrar">
+        {% comment %} <div class="form-group"> {% endcomment %}
+
+    {{ form.nome }}
+    {{ form.email }}
+    {{ form.senha }}
+
+    <div class="row">
+        <div class="col-md-6">
+            {{ form.CEP }}
         </div>
+        <div class="col-md-6">
+            {{ form.logradouro }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            {{ form.bairro }}
+        </div>
+        <div class="col-md-6">
+            {{ form.localidade }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            {{ form.estado }}
+        </div>
+        <div class="col-md-6">
+            {{ form.numero_residencia }}
+        </div>
+    </div>          <a href="{% url 'login' %}" class="CadastrarLink">Já tem uma conta ? Faça Login</a>
+
+        <input type="submit" value="Cadastrar" id="btnCadastrar">
+        {% comment %} </div> {% endcomment %}
     </form>
 </div>
 

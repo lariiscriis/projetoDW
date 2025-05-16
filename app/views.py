@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.template import loader
 from app.models import Usuario, Produto
 from app.forms import formUsuario, formProduto, formLogin
+import requests
 # Create your views here.
 
 def exibirUsuarios(request):
@@ -50,8 +51,8 @@ def dashboard(request):
         return render(request, "dashboard.html", {'email' : _email})
 
         
-def addUsuario(request):
-    formUser = formUsuario(request.POST or None)
+def addUsuario(request, numeroCEP):
+    formUser = formUsuario(request.POST or None)        
     if request.POST:
         if formUser.is_valid():
             formUser.save()
@@ -118,5 +119,10 @@ def editarProduto(request, id_produto):
 
 
 def cardsProdutos(request):
+   # produtosAPI = requests.get("https://fakestoreapi.com/products").json()
     produtos = Produto.objects.all().values()
+
     return render(request, "cards-produtos.html", {'listProdutos': produtos})
+
+def ConsumoCEP(request, numeroCEP):
+    apiCEP = request.get("https://viacep.com.br/ws/" + numeroCEP)

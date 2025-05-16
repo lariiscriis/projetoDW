@@ -5,6 +5,15 @@ class Usuario(models.Model):
     nome = models.CharField(max_length = 100)
     email = models.EmailField()
     senha = models.CharField(max_length = 16)
+    CEP = models.CharField(max_length = 8)
+    logradouro = models.CharField(max_length = 100)
+    bairro = models.CharField(max_length = 100)
+    localidade = models.CharField(max_length = 100)
+    estado = models.CharField(max_length = 100)
+    numero_residencia = models.IntegerField()
+
+    # def __str__(self):
+    #     return f"{self.nome} ({self.email})"
 
 class Produto(models.Model):
     nomeProduto = models.CharField(max_length = 200)
@@ -13,4 +22,7 @@ class Produto(models.Model):
     imagemProduto = models.ImageField(upload_to='imagens/')
     qtdeEstoque = models.IntegerField()
     
+
+
+
     
