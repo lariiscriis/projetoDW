@@ -7,6 +7,12 @@
 
 {% block conteudo %}
 
-    <h1>Bem-vindo(a) {{email}}</h1>
+    <div class="containerDashboard">
+    <h1>Bem-vindo(a)! {{email}} 🐻</h1>
 
+    <div class="btn">
+     <a href="{% url 'exibirUsuarios' %}"><button id="btnDashboard" class="btn ">Usuários</button></a>
+        <a href="{% url 'listarProdutos' %}"><button id="btnDashboard" class="btn ">Produtos</button></a>
+   </div>
+   </div>
 {% endblock %}

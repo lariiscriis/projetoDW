@@ -6,10 +6,14 @@
 {% block titulo %} Usuários {% endblock %}
 
 {% block conteudo %}
+<a href="{% url 'dashboard' %}"><button id="btnVoltar" class="btn ">Voltar</button></a>
+
 <div class="users d-flex flex-column align-items-center justify-content-center mt-2 mb-2">
+
     <img src="{% static 'assets/users.png' %}" alt="">
     <h1 id="h1Usuarios">Usuários</h1>
 </div>
+
     <table class="table table-hover p-3 m-auto" style="width: 40%;">
         <tr id="trUsuarios">
             <th>Nome</th>

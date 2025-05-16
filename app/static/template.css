@@ -269,11 +269,30 @@ input:focus{
     font-family: "Poppins", sans-serif;
     transition: all .8s;
 }
+
+#btnVoltar{
+    background-color: #cce6e1 !important;
+    border-color: #98ccc6 !important;
+    border-radius: 5px;
+    color: white !important;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    font-family: "Poppins", sans-serif;
+    transition: all .8s;
+    margin: 2em 0em 0em 2em;
+}
 /* 
 .editarProdForm{
     width: 100em;
 } */
- 
+
+.CadastrarLink{
+    color: #FF9394;
+    margin: 1em 1em 1em 0.5em;
+
+}
+
+
 a {
     text-decoration: none;
     color: black;
@@ -457,6 +476,26 @@ a {
      1px -1px 0 #000,
     -1px  1px 0 #000,
      1px  1px 0 #000;
+}
+
+/* dashboard */
+
+.containerDashboard button{
+    background-color: #e1edc1c7 !important;
+    border-color: #cee58f !important;
+    color: #668120 !important;
+    letter-spacing: 0.5px;
+    font-family: "Poppins", sans-serif;
+    transition: all .8s;
+}
+
+.containerDashboard{
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    display: flex;
+    text-align: center;
+    margin-top: 5em;
 }
 
 

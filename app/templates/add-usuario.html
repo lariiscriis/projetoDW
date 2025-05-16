@@ -17,6 +17,7 @@
         {% csrf_token %}
         <div class="form-group">
         {{form.as_p}}
+          <a href="{% url 'login' %}" class="CadastrarLink">Já tem uma conta? Faça Login</a>
         <input type="submit" value="Cadastrar" id="btnCadastrar">
         </div>
     </form>
