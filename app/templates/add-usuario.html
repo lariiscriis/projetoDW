@@ -51,4 +51,30 @@
     </form>
 </div>
 
+
+<script>
+
+    function buscaCep(cep){
+        fetch('https://viacep.com.br/ws/'+ cep + '/json/')
+        .then(response => {
+            if(!response.ok){
+                console.log("Erro de Conexão")
+            }
+        return response.json()
+        } )
+        .then(data => {
+            console.log(data)
+            logradouro.value = data.logradouro
+            bairro.value = data.bairro
+            localidade.value = data.localidade
+            estado.value = data.estado
+
+        })
+        .catch(error => {
+            console.log("Erro", error)
+        })
+    }
+
+</script>
+
 {% endblock %}

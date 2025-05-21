@@ -51,7 +51,7 @@ def dashboard(request):
         return render(request, "dashboard.html", {'email' : _email})
 
         
-def addUsuario(request, numeroCEP):
+def addUsuario(request):
     formUser = formUsuario(request.POST or None)        
     if request.POST:
         if formUser.is_valid():

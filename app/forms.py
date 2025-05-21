@@ -10,12 +10,12 @@ class formUsuario(forms.ModelForm):
             'nome' : forms.TextInput(attrs={'class': 'form-control mb-3', 'placeholder': 'nome'}),
             'email': forms.TextInput(attrs={'class':'form-control mb-3' , 'placeholder': 'email'}),
             'senha': forms.TextInput(attrs={'class': 'form-control mb-3', 'type': 'password', 'placeholder': 'senha'}),
-            'CEP': forms.TextInput(attrs={'class':'form-control mb-3' , 'placeholder': 'CEP'}),
-            'logradouro': forms.TextInput(attrs={'class':'form-control mb-3' , 'placeholder': 'Logradouro'}),
-            'bairro': forms.TextInput(attrs={'class':'form-control mb-3' , 'placeholder': 'Bairro'}),
-            'localidade': forms.TextInput(attrs={'class':'form-control mb-3' , 'placeholder': 'Localidade'}),
-            'estado': forms.TextInput(attrs={'class':'form-control mb-3' , 'placeholder': 'Estado'}),
-            'numero_residencia': forms.TextInput(attrs={'class':'form-control mb-3' , 'placeholder': 'Número'}),
+            'CEP': forms.TextInput(attrs={'class':'form-control mb-3' , 'placeholder': 'CEP', 'onblur': 'buscaCep(this.value)', 'id': 'cep'}),
+            'logradouro': forms.TextInput(attrs={'class':'form-control mb-3' , 'placeholder': 'Logradouro','id': 'logradouro'}),
+            'bairro': forms.TextInput(attrs={'class':'form-control mb-3' , 'placeholder': 'Bairro','id': 'bairro'}),
+            'localidade': forms.TextInput(attrs={'class':'form-control mb-3' , 'placeholder': 'Localidade','id': 'localidade'}),
+            'estado': forms.TextInput(attrs={'class':'form-control mb-3' , 'placeholder': 'Estado','id': 'estado'}),
+            'numero_residencia': forms.TextInput(attrs={'class':'form-control mb-3' , 'placeholder': 'Número','id': 'numero'}),
         }
 
 
