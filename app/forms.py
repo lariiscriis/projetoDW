@@ -1,5 +1,6 @@
 from django import forms 
 from app.models import Usuario, Produto
+from django.forms.widgets import HiddenInput
 
 class formUsuario(forms.ModelForm):
     class Meta:
@@ -32,13 +33,23 @@ class formLogin(forms.ModelForm):
 class formProduto(forms.ModelForm):
     class Meta:
         model = Produto
-        fields = ('nomeProduto', 'descricaoProduto', 'precoProduto', 'imagemProduto', 'qtdeEstoque')
+        fields = ('nomeProduto', 'descricaoProduto', 'precoProduto', 'imagemProduto', 'qtdeEstoque', 'categoria')
+        # my_choices = [('chaveiro', 'Chaveiro'), ('peluGrande', 'Pelúcia Grande'), ('peluMedia', 'Pelúcia Média'), ('peluPequena', 'Pelúcia Pequena')]
 
         widgets = {
             'nomeProduto' : forms.TextInput(attrs={'class': 'form-control mb-3', 'placeholder': 'nome do produto'}),
             'descricaoProduto': forms.TextInput(attrs={'class': 'form-control mb-3', 'placeholder': 'descrição' }),
             'precoProduto': forms.NumberInput(attrs={'class': 'form-control mb-3', 'placeholder': 'Preço'}),
             'imagemProduto': forms.FileInput(attrs={'class': 'form-control mb-3', 'placeholder': 'descrição' }),
-            'qtdeEstoque': forms.NumberInput(attrs={'class': 'form-control mb-3', 'placeholder': 'Produto em estoque' })
-            # erro nos fields, resolver depois
-        }
+            'qtdeEstoque': forms.NumberInput(attrs={'class': 'form-control mb-3', 'placeholder': 'Produto em estoque' }),
+            'categoria': forms.Select(attrs={'class': 'form-control mb-3'}),
+        } 
+
+    def __init__(self, *args, **kwargs):
+     super(formProduto, self).__init__(*args, **kwargs)
+     self.fields['categoria'].choices = [
+                ('chaveiro', 'Chaveiro'),
+                ('peluGrande', 'Pelúcia Grande'),
+                ('peluMedia', 'Pelúcia Média'),
+                ('peluPequena', 'Pelúcia Pequena')
+            ]

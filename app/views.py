@@ -2,9 +2,16 @@ from datetime import datetime, timedelta
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.template import loader
-from app.models import Usuario, Produto
+from app.models import Usuario, Produto, Categoria
 from app.forms import formUsuario, formProduto, formLogin
 import requests
+import matplotlib
+import io, urllib, base64
+import matplotlib.pyplot as plt
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework import status
+from projeto.serializers import CategoriaSerializer
 # Create your views here.
 
 def exibirUsuarios(request):
@@ -126,3 +133,60 @@ def cardsProdutos(request):
 
 def ConsumoCEP(request, numeroCEP):
     apiCEP = request.get("https://viacep.com.br/ws/" + numeroCEP)
+
+
+def grafico(request):
+    produtos = Produto.objects.all()
+    nome = [produto.nomeProduto for produto in produtos]
+    estoque = [produto.qtdeEstoque for produto in produtos]
+
+    fig, ax = plt.subplots()
+
+    ax.bar(nome, estoque)
+    ax.set_xlabel("Produto")
+    ax.set_ylabel("Estoque")
+    ax.set_title("Produtos")
+
+    buf = io.BytesIO()
+    plt.savefig(buf, format='png')
+    buf.seek(0)
+
+    string = base64.b64encode(buf .read())
+    uri = 'data:image/png;base64,' + urllib.parse.quote(string)
+
+    return render(request, 'grafico.html', {'dados': uri})
+
+@api_view(['GET','POST'])
+def getCategorias(request):
+    if request.method == 'GET':
+        categorias = Categoria.objects.all()
+        serializer = CategoriaSerializer(categorias, many=True)
+        return Response(serializer.data)
+    elif request.method == 'POST':
+
+        serializer = CategoriaSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+@api_view(['GET', 'PUT', 'DELETE'])
+def getCategoriaID(request, id_categoria):
+    try:
+        categoria = Categoria.objects.get(id=id_categoria)
+    except Categoria.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    if request.method == 'GET':
+        serializer = CategoriaSerializer(categoria)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        serializer = CategoriaSerializer(categoria, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        categoria.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
