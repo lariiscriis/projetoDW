@@ -19,6 +19,7 @@ urlpatterns = [
     path('grafico', views.grafico, name="grafico" ),
     path('categorias', views.getCategorias, name="categorias" ),
     path('categoria/<int:id_categoria>', views.getCategoriaID, name="categoriaID" ),
-
+    path('checkout/<int:produto_id>/', views.checkout, name='checkout'),
+    path('compras', views.compras, name="compras" ),
 
 ]

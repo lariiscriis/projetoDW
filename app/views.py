@@ -2,8 +2,8 @@ from datetime import datetime, timedelta
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.template import loader
-from app.models import Usuario, Produto, Categoria
-from app.forms import formUsuario, formProduto, formLogin
+from app.models import Usuario, Produto, Categoria, Venda
+from app.forms import formUsuario, formProduto, formLogin, formCheckout
 import requests
 import matplotlib
 import io, urllib, base64
@@ -88,7 +88,7 @@ def editarUsuario(request, id_usuario):
 
 def cadastrarProduto(request):
     if not request.session.get("email"):
-        return redirect("app")
+        return redirect("login")
 
     if request.method == 'POST':
         formProduct = formProduto(request.POST, request.FILES)
@@ -101,7 +101,7 @@ def cadastrarProduto(request):
 
 def listarProdutos(request):
     if not request.session.get("email"):
-        return redirect("app")
+        return redirect("login")
 
     listProdutos = Produto.objects.select_related('categoria').all()
     return render(request, "listar-produtos.html", {'listProdutos': listProdutos})
@@ -189,3 +189,46 @@ def getCategoriaID(request, id_categoria):
     elif request.method == 'DELETE':
         categoria.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+def checkout(request, produto_id):
+    if not request.session.get("email"):
+        return redirect("login")
+
+    produto = Produto.objects.get(id=produto_id)
+    cliente = Usuario.objects.get(email=request.session.get("email"))
+
+    if request.method == 'POST':
+        form = formCheckout(request.POST)
+
+        if form.is_valid():
+            venda = Venda(
+                cliente=cliente,
+                produto=produto,
+                preco_venda=produto.precoProduto,
+                numero_cartao=form.cleaned_data.get('numero_cartao'),
+                validade=form.cleaned_data.get('validade'),
+                cvv=form.cleaned_data.get('cvv'),
+            )
+            venda.save()
+            return redirect("compras")
+    else:
+        form = formCheckout()
+
+    return render(request, "checkout.html", {
+        "produto": produto,
+        "cliente": cliente,
+        "form": form
+    })
+
+
+def compras(request):
+    if not request.session.get("email"):
+        return redirect("login")
+
+    cliente = Usuario.objects.get(email=request.session.get("email"))
+    compras = Venda.objects.filter(cliente=cliente).select_related('produto')
+
+    return render(request, "compras.html", {
+        "compras": compras
+    })

@@ -1,5 +1,5 @@
 from django import forms 
-from app.models import Usuario, Produto
+from app.models import Usuario, Produto, Venda
 from django.forms.widgets import HiddenInput
 
 class formUsuario(forms.ModelForm):
@@ -43,3 +43,15 @@ class formProduto(forms.ModelForm):
             'qtdeEstoque': forms.NumberInput(attrs={'class': 'form-control mb-3', 'placeholder': 'Produto em estoque' }),
             'categoria': forms.Select(attrs={'class': 'form-control mb-3','placeholder': 'Categoria'}),
         } 
+
+
+class formCheckout(forms.ModelForm):
+    class Meta:
+        model = Venda
+        fields = ('numero_cartao', 'validade', 'cvv')
+
+        widgets = {
+            'numero_cartao': forms.TextInput(attrs={'class': 'form-control mb-3', 'placeholder': '0000 0000 0000 0000'}),
+            'validade': forms.TextInput(attrs={'class': 'form-control mb-3', 'placeholder': '12/26'}),
+            'cvv': forms.TextInput(attrs={'class': 'form-control mb-3', 'placeholder': '123'}),
+        }

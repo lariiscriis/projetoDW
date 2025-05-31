@@ -1,0 +1,22 @@
+{% extends "template.html" %}
+
+{% block conteudo %}
+<h2>checkout</h2>
+<p><strong>Usuário:</strong> {{ cliente.nome }}</p>
+<p><strong>Email:</strong> {{ cliente.email }}</p>
+
+<p><strong>Produto:</strong> {{ produto.nomeProduto }}</p>
+<p><strong>Preço:</strong> R$ {{ produto.precoProduto }}</p>
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Finalizar Compra</button>
+</form>
+
+{% if messages %}
+    {% for message in messages %}
+        <p style="color: green;">{{ message }}</p>
+    {% endfor %}
+{% endif %}
+{% endblock %}

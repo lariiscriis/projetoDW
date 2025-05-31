@@ -5,6 +5,8 @@
 {% block 'titulo' %} Cadastrar Produto {% endblock %}
 
 {% block conteudo %}
+<a href="{% url 'dashboard' %}"><button id="btnVoltar" class="btn ">Voltar</button></a>
+
 <div class="container mt-5 d-flex align-items-center justify-content-center" >
     <form method="POST" id="ContainerLogin" enctype="multipart/form-data">
         {% csrf_token %}

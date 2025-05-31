@@ -1,0 +1,29 @@
+{% extends "template.html" %}
+{% block titulo %}Minhas Compras{% endblock %}
+
+{% block conteudo %}
+<h2 class="text-center">Minhas Compras</h2>
+
+<table class="table table-hover p-3 m-auto" style="width: 40%;">
+    <thead>
+        <tr>
+            <th>Produto</th>
+            <th>Preço</th>
+            <th>Data da Compra</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for compra in compras %}
+            <tr>
+                <td>{{ compra.produto.nomeProduto }}</td>
+                <td>R$ {{ compra.preco_venda }}</td>
+                <td>{{ compra.data_compra|date:"d/m/Y H:i" }}</td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="3">Você ainda não realizou nenhuma compra.</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
