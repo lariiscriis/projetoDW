@@ -103,9 +103,8 @@ def listarProdutos(request):
     if not request.session.get("email"):
         return redirect("app")
 
-    produtos = Produto.objects.all().values()
-    return render(request, "listar-produtos.html", {'listProdutos': produtos})
-
+    listProdutos = Produto.objects.select_related('categoria').all()
+    return render(request, "listar-produtos.html", {'listProdutos': listProdutos})
 
 def excluirProduto(request, id_produto):
     produto = Produto.objects.get(id=id_produto)

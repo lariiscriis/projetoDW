@@ -13,6 +13,7 @@
             <th>Produto</th>
             <th>Imagem</th>
             <th colspan= "2">Ações</th>
+            <th>Categoria</th>
         </tr>
         {% for produto in listProdutos %}
             <tr id="trProd">
@@ -20,6 +21,13 @@
                 <td><img src="/media/{{ produto.imagemProduto }}"  alt=""  style="width: 100px; height: auto;"></td>
                 <td><a href="{% url 'excluirProduto' produto.id %}"> <button  id="btnExcluir"> Excluir </button> </a></td>
                <td><a href="{% url 'editarProduto' produto.id %}"> <button id="btnEditar"> Editar</button> </a></td> 
+               <td>
+                {% if produto.categoria %}
+                    {{ produto.categoria }}
+                {% else %}
+                    Sem categoria
+                {% endif %}
+                </td>
 
             </tr>
         {% endfor %}
