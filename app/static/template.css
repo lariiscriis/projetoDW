@@ -479,6 +479,23 @@ a {
      1px  1px 0 #000;
 }
 
+.blog-categoria{
+    height: 30px;
+    margin-top: 1em;
+}
+
+.blog-categoria span {
+    display: inline-block;
+    padding: 5px 10px;
+    border: 2px solid #FF9394;
+    background-color: #ffb7a540;
+    color: black;
+    border-radius: 5px;
+    font-size: 14px;
+    margin-right: 5px;
+    transition: background-color 0.3s ease;
+}
+
 /* dashboard */
 
 .containerDashboard button{
@@ -497,6 +514,109 @@ a {
     display: flex;
     text-align: center;
     margin-top: 5em;
+}
+
+/* checkout */
+
+.container-checkout {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    margin-top: 2em;
+}
+
+.bem-vindo {
+    background-color: #ffb7a540;
+    border: 5px solid #FF9394;
+    border-radius: 16px;
+    padding: 20px 30px;
+    margin: 30px auto;
+    width: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-family: "Segoe UI", sans-serif;
+    color: #5a2a2a;
+}
+
+.bem-vindo h3 {
+    margin-bottom: 10px;
+    color: #FF9394;
+}
+
+.bem-vindo strong {
+    color: #f66c6e;
+}
+
+.form-checkout {
+    background-color: #ffb7a540;
+    border: 2px dashed #FF9394;
+    border-radius: 16px;
+    padding: 25px;
+    width: 30%;
+    margin: 15px auto;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08);
+}
+
+.form-checkout form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.form-checkout button {
+    background-color: #FF9394;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.form-checkout button:hover {
+    background-color: #f6a0a0;
+}
+
+/* mensagens */
+#popup-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+}
+
+.popup-message {
+  width: 300px;
+  padding: 15px 20px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  color: #212529;
+  font-weight: 500;
+  animation: fadeOut 4s forwards;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.popup-message.success {
+  background-color: #E1EDC1;
+}
+
+.popup-message.error {
+  background-color: #FF9394;
+}
+
+.popup-message.info {
+  background-color: #C3E6E2;
+}
+
+.popup-message.warning {
+  background-color: #FFEBB8;
+}
+
+@keyframes fadeOut {
+  0% { opacity: 1; }
+  70% { opacity: 1; }
+  100% { opacity: 0; display: none; }
 }
 
 

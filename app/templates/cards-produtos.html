@@ -27,8 +27,16 @@
         </div>
             <p class="blog-description">
                 {{produto.descricaoProduto}}
-
             </p>
+            <div class="blog-categoria">
+            <span><strong>Categoria:</strong>
+              {% if produto.categoria %}
+                    {{ produto.categoria }}
+                {% else %}
+                    Sem categoria
+                {% endif %}
+            </span>
+            </div>
             <div class="blog-footer">
                 <div class="author-image">
                 <span class="blog-author">

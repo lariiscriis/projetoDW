@@ -1,22 +1,43 @@
 {% extends "template.html" %}
 
 {% block conteudo %}
-<h2>checkout</h2>
-<p><strong>Usuário:</strong> {{ cliente.nome }}</p>
-<p><strong>Email:</strong> {{ cliente.email }}</p>
 
-<p><strong>Produto:</strong> {{ produto.nomeProduto }}</p>
-<p><strong>Preço:</strong> R$ {{ produto.precoProduto }}</p>
+<div class="bem-vindo">
+    <h3>Olá <strong>{{cliente.nome}}</strong>!, Bem Vindo ao Checkout!🧸</h3>
+    <p><strong>Email:</strong> {{ cliente.email }}</p>
+</div>
+<div class="container-checkout">
 
-<form method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Finalizar Compra</button>
-</form>
+  <table class="table table-hover p-3 m-auto" style="width: 40%;">
+        <tr id="trUsuarios">
+            <th>Imagem</th>
+            <th>Nome do Produto</th>
+            <th>Preço</th>
+        </tr>
+            <tr id="trProd">
+                <td><img src="/media/{{ produto.imagemProduto }}"  alt=""  style="width: 100px; height: auto;"></td>
+                <td>{{produto.nomeProduto}}</td>
+                <td>{{produto.precoProduto}}</td>
 
-{% if messages %}
-    {% for message in messages %}
-        <p style="color: green;">{{ message }}</p>
-    {% endfor %}
-{% endif %}
+            </tr>
+
+            
+    </table>
+        <div class="form-checkout">
+                    <form method="POST">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit">Finalizar Compra</button>
+                </form>
+        </div>
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+            <div class="alert {{ message.tags }}">
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+</div>
 {% endblock %}

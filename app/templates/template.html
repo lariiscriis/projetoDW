@@ -31,7 +31,6 @@
           <form class="d-flex" role="search">
             <button class="btn btn-outline-success" type="submit" id="btn-login">
               <a  href="{% url 'login' %}">Login</a>
-
             </button>
           </form>
         </div>
@@ -67,6 +66,16 @@
 
 </footer>
 </div>
+
+{% if messages %}
+  <div id="popup-container">
+    {% for message in messages %}
+      <div class="popup-message {{ message.tags }}">
+        {{ message }}
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
 
 </body>
 </html>

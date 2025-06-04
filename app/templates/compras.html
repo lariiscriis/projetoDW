@@ -2,12 +2,15 @@
 {% block titulo %}Minhas Compras{% endblock %}
 
 {% block conteudo %}
-<h2 class="text-center">Minhas Compras</h2>
+<a href="{% url 'dashboard' %}"><button id="btnVoltar" class="btn ">Voltar</button></a>
+
+<h2 class="text-center" style="margin-top: 1em; margin-bottom: 1em;">Minhas Compras 🧸</h2>
 
 <table class="table table-hover p-3 m-auto" style="width: 40%;">
     <thead>
         <tr>
-            <th>Produto</th>
+            <th>Imagem</th>
+            <th>Nome do Produto</th>
             <th>Preço</th>
             <th>Data da Compra</th>
         </tr>
@@ -15,6 +18,7 @@
     <tbody>
         {% for compra in compras %}
             <tr>
+                <td><img src="/media/{{ compra.produto.imagemProduto }}" alt="" style="width: 100px; height: auto;"></td>
                 <td>{{ compra.produto.nomeProduto }}</td>
                 <td>R$ {{ compra.preco_venda }}</td>
                 <td>{{ compra.data_compra|date:"d/m/Y H:i" }}</td>

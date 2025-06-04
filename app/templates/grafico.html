@@ -2,13 +2,37 @@
 
 {% load static %}
 
-{% block titulo %} Grafico {% endblock %}
+{% block titulo %} Gráfico {% endblock %}
+
+{% block head %}
+
+<style>
+
+caixa-grafico {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2em;
+}
+
+
+</style>
+
+{% endblock %}
 
 {% block conteudo %}
 
-<div class="caixa-grafico">
+<div class="caixa-grafico" style="       display: flex;
+                                        flex-direction: column;
+                                        align-items: center;
+                                        justify-content: center;
+                                        margin-top: 2em;
+                                        gap: 1em;">
 
-    <h1>Gráfico de Produtos disponivel no Estoque</h1>
+<a href="{% url 'dashboard' %}"><button id="btnVoltar" class="btn ">Voltar</button></a>
+
+    <h1>Gráfico de Produtos dísponivel no Estoque</h1>
     <img src="{{ dados }}" alt="Estoque">
 </div>
 
