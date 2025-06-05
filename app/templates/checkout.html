@@ -30,14 +30,6 @@
                     <button type="submit">Finalizar Compra</button>
                 </form>
         </div>
-        {% if messages %}
-        <div class="messages">
-            {% for message in messages %}
-            <div class="alert {{ message.tags }}">
-                {{ message }}
-            </div>
-            {% endfor %}
-        </div>
-        {% endif %}
+
 </div>
 {% endblock %}

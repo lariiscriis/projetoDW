@@ -3,12 +3,20 @@ from app.models import Usuario, Produto, Venda
 from django.forms.widgets import HiddenInput
 
 class formUsuario(forms.ModelForm):
+    confirmar_senha = forms.CharField(
+        widget=forms.TextInput(attrs={
+            'class': 'form-control mb-3', 
+            'type': 'password', 
+            'placeholder': 'confirmar senha'
+        })
+    )
+
     class Meta:
         model = Usuario
-        fields = ('nome', 'email', 'senha', 'CEP', 'logradouro', 'bairro', 'localidade', 'estado', 'numero_residencia' )
+        fields = ('nome', 'email', 'senha','CEP', 'logradouro', 'bairro', 'localidade', 'estado', 'numero_residencia' )
         
         widgets = {
-            'nome' : forms.TextInput(attrs={'class': 'form-control mb-3', 'placeholder': 'nome'}),
+            'nome': forms.TextInput(attrs={'class': 'form-control mb-3', 'placeholder': 'nome'}),
             'email': forms.TextInput(attrs={'class':'form-control mb-3' , 'placeholder': 'email'}),
             'senha': forms.TextInput(attrs={'class': 'form-control mb-3', 'type': 'password', 'placeholder': 'senha'}),
             'CEP': forms.TextInput(attrs={'class':'form-control mb-3' , 'placeholder': 'CEP', 'onblur': 'buscaCep(this.value)', 'id': 'cep'}),
@@ -18,6 +26,8 @@ class formUsuario(forms.ModelForm):
             'estado': forms.TextInput(attrs={'class':'form-control mb-3' , 'placeholder': 'Estado','id': 'estado'}),
             'numero_residencia': forms.TextInput(attrs={'class':'form-control mb-3' , 'placeholder': 'Número','id': 'numero'}),
         }
+
+
 
 
 class formLogin(forms.ModelForm):

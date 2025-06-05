@@ -1,37 +1,40 @@
 {% extends 'template.html' %}
-
 {% load static %}
 
-{% block titulo %} Login {% endblock %}
+{% block titulo %}Login{% endblock %}
 
 {% block conteudo %}
+<div class="container mt-5 mb-5" id="loginWrapper">
+  <div class="row d-flex align-items-center justify-content-center" id="ContainerLogin">
 
-<div class="users d-flex flex-column align-items-center justify-content-center mt-2 mb-2">
-    <img src="{% static 'assets/users.png' %}" alt="">
-        <h1 id="h1Usuarios">Login</h1>
+    <div class="col-md-6 d-none d-md-block text-center">
+      <img src="{% static 'assets/ursinhos3.png' %}" alt="Ursinho fofo" class="img-fluid rounded login-imagem">
     </div>
 
-
-<div class="container d-flex align-items-center justify-content-center" >
-    <form method="post" action="{% url 'login' %}" id="ContainerLogin">
-        {% csrf_token %}
-        <div class="form-group">
-        {{form.as_p}}
-        <a href="{% url 'addUsuario' %}" class="CadastrarLink">Não tem uma conta? Cadastre-se</a>
-        <input type="submit" value="Entrar" id="btnCadastrar">
+    <div class="col-md-6" >
+      <div class="card p-4 shadow-sm border-0 " style="background-color: #f9ebc9ca;">
+        <div class="text-center">
+          <img src="{% static 'assets/users.png' %}" alt="Ícone de login" width="60" class="mb-2">
+          <h2 id="h1Usuarios" class="mb-4">Login</h2>
         </div>
-    </form>
-</div>
 
-    {% if messages %}
-  <div class="messages">
-    {% for message in messages %}
-      <div class="alert {{ message.tags }}">
-        {{ message }}
+        <form method="post" action="{% url 'login' %}">
+            
+          {% csrf_token %}
+          <div class="form-group">
+          {{ form.as_p }}
+          <div class="mb-3 text-center" >
+            <a href="{% url 'addUsuario' %}" class="CadastrarLink">Não tem uma conta? Cadastre-se</a>
+          </div>
+
+          <div class="text-center" >
+            <input type="submit" value="Entrar" id="btnCadastrar" class="btn btn-primary w-100">
+          </div>
+        </form>
+        </div>
+
       </div>
-    {% endfor %}
+    </div>
   </div>
-{% endif %}
-
-
+</div>
 {% endblock %}

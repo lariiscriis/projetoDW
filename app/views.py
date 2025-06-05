@@ -13,6 +13,8 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from projeto.serializers import CategoriaSerializer
+from django.contrib.auth.hashers import make_password, check_password
+
 # Create your views here.
 
 def exibirUsuarios(request):
@@ -23,8 +25,8 @@ def exibirUsuarios(request):
     return render(request, "usuarios.html", {'listUsuarios': usuarios})
 
 def index(request):
-    template = loader.get_template("index.html")
-    return HttpResponse(template.render())
+    # template = loader.get_template("index.html")
+    return render(request,"index.html", {'email': request.session.get("email")})
 
 
 def login(request):
@@ -33,22 +35,33 @@ def login(request):
         if frmLogin.is_valid():
             _email = frmLogin.cleaned_data.get('email')
             _senha = frmLogin.cleaned_data.get('senha')
+
             try:
-                userLogin = Usuario.objects.get(email=_email,senha= _senha)
-                if userLogin is not None:
+                userLogin = Usuario.objects.get(email=_email)
+                if check_password(_senha, userLogin.senha):
                     request.session.set_expiry(timedelta(seconds=600))
-                   
                     request.session['email'] = _email
+
                     tempo_sessao = timedelta(seconds=600)
                     tempo_sessao_segundos = tempo_sessao.total_seconds()
-                    request.session['tempo_sessao_segundos '] =  tempo_sessao_segundos
+
+                    request.session['tempo_sessao_segundos'] = tempo_sessao_segundos
                     messages.success(request, 'Login efetuado com sucesso!')
                     return redirect("dashboard")
+                
+                else:
+                    messages.error(request, 'Email ou senha inválidos.')
+                    return render(request, "login.html", {'form': frmLogin})
+                
             except Usuario.DoesNotExist:
                 messages.error(request, 'Email ou senha inválidos.')
-                return render(request, "login.html")
+                return render(request, "login.html", {'form': frmLogin})
     return render(request, "login.html", {'form': frmLogin})
 
+def logout(request):
+    request.session.flush()
+    messages.info(request, "Logout realizado com sucesso.")
+    return redirect("login")
 
 def dashboard(request):
     _email = request.session.get("email")
@@ -56,7 +69,7 @@ def dashboard(request):
     if _email is None:
             messages.warning(request, 'Você precisa fazer login para acessar o dashboard.')
             return render(request, "index.html")
-    if tempo_sessao and tempo_sessao > timedelta(seconds=600) :
+    if tempo_sessao and tempo_sessao > timedelta(seconds=600).total_seconds():
         messages.warning(request, 'Sua sessão expirou. Por favor, faça login novamente.')
         return render(request, "index.html")
     else:
@@ -66,12 +79,29 @@ def dashboard(request):
 def addUsuario(request):
     formUser = formUsuario(request.POST or None)        
     if request.POST:
+
         if formUser.is_valid():
-            formUser.save()
-            messages.success(request, 'Usuário cadastrado com sucesso!')
-            return redirect("exibirUsuarios")
+            email = formUser.cleaned_data.get('email')
+            senha = formUser.cleaned_data.get('senha')
+            confirmar_senha = request.POST.get('confirmar_senha') 
+            
+            if Usuario.objects.filter(email=email).exists():
+                messages.error(request, 'Email já cadastrado. Por favor, use outro email.')
+                return render(request, "add-usuario.html", {'form': formUser})
+            elif senha != confirmar_senha:
+                messages.error(request, 'As senhas não coincidem. Por favor, tente novamente.')
+                return render(request, "add-usuario.html", {'form': formUser})
+            else:
+                usuario = formUser.save(commit=False) 
+                usuario.senha = make_password(senha)  
+                usuario.save()                      
+                messages.success(request, 'Usuário cadastrado com sucesso!')
+
+                return redirect("exibirUsuarios")
+            
         else:
             messages.error(request, 'Erro ao cadastrar usuário. Verifique os dados e tente novamente.')
+    
     return render(request, "add-usuario.html", {'form':formUser})
 
 
@@ -148,6 +178,10 @@ def ConsumoCEP(request, numeroCEP):
 
 
 def grafico(request):
+    if not request.session.get("email"):
+        messages.warning(request, 'Você precisa fazer login para acessar os gráficos.')
+        return redirect("login")
+     
     produtos = Produto.objects.all()
     categoria = [str(produto.categoria) for produto in produtos]
     estoque = [produto.qtdeEstoque for produto in produtos]
@@ -171,6 +205,40 @@ def grafico(request):
     uri = 'data:image/png;base64,' + urllib.parse.quote(string)
 
     return render(request, 'grafico.html', {'dados': uri})
+
+
+def grafico_vendas(request):
+    if not request.session.get("email"):
+        messages.warning(request, 'Você precisa fazer login para acessar os gráficos.')
+        return redirect("login")
+
+    vendas = Venda.objects.all()
+    vendas_por_data = {}
+
+    for venda in vendas:
+        data_str = venda.data_compra.strftime("%Y-%m-%d")  
+        vendas_por_data[data_str] = vendas_por_data.get(data_str, 0) + float(venda.preco_venda)
+
+    datas = list(vendas_por_data.keys())
+    totais = list(vendas_por_data.values())
+
+    fig, ax = plt.subplots()
+    ax.plot(datas, totais, marker='o', linestyle='-',  color='pink')
+    ax.set_title("Total de Vendas por Dia")
+    ax.set_xlabel("Data")
+    ax.set_ylabel("Total R$")
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+
+    buf = io.BytesIO()
+    plt.savefig(buf, format='png')
+    buf.seek(0)
+    string = base64.b64encode(buf.read())
+    uri = 'data:image/png;base64,' + urllib.parse.quote(string)
+
+    return render(request, 'grafico-vendas.html', {'dados': uri})
+
+
 
 @api_view(['GET','POST'])
 def getCategorias(request):
