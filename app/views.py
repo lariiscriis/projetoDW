@@ -14,7 +14,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from projeto.serializers import CategoriaSerializer
 from django.contrib.auth.hashers import make_password, check_password
-
+import requests
 # Create your views here.
 
 def exibirUsuarios(request):
@@ -97,7 +97,7 @@ def addUsuario(request):
                 usuario.save()                      
                 messages.success(request, 'Usuário cadastrado com sucesso!')
 
-                return redirect("exibirUsuarios")
+                return redirect("login")
             
         else:
             messages.error(request, 'Erro ao cadastrar usuário. Verifique os dados e tente novamente.')
@@ -114,14 +114,27 @@ def excluirUsuario(request, id_usuario):
 
 def editarUsuario(request, id_usuario):
     usuario = Usuario.objects.get(id=id_usuario)
+    email_antigo = usuario.email
     formUser = formUsuario(request.POST or None, instance=usuario)
 
     if request.POST:
         if formUser.is_valid():
-            formUser.save()
-            messages.success(request, f'Usuário {usuario.nome} editado com sucesso!')
-            return redirect("exibirUsuarios")
+            confirmar_senha = request.POST.get('confirmar_senha') 
+            if confirmar_senha and confirmar_senha != formUser.cleaned_data.get('senha'):
+                messages.error(request, 'As senhas não coincidem. Por favor, tente novamente.')
+                return render(request, "editar-usuario.html", {'form': formUser})
+            else:
+                if request.session.get("email") == email_antigo:
+                    request.session['email'] = usuario.email
+                    messages.info(request, 'Seu email foi atualizado na sessão.')
+                usuario = formUser.save(commit=False) 
+                usuario.senha = make_password(formUser.cleaned_data.get('senha'))  
+                usuario.save()                     
+                messages.success(request, f'Usuário {usuario.nome} editado com sucesso!')
+                
+                return redirect("exibirUsuarios") 
         else:
+            print(formUser.errors)
             messages.error(request, 'Erro ao editar usuário. Verifique os dados e tente novamente.')
     return render(request, "editar-usuario.html", {'form': formUser})
 
@@ -168,10 +181,10 @@ def editarProduto(request, id_produto):
 
 
 def cardsProdutos(request):
-   # produtosAPI = requests.get("https://fakestoreapi.com/products").json()
+    produtosAPI = requests.get("https://fakestoreapi.com/products").json()
     # produtos = Produto.objects.all().values()
     listProdutos = Produto.objects.select_related('categoria').all()
-    return render(request, "cards-produtos.html", {'listProdutos': listProdutos})
+    return render(request, "cards-produtos.html", {'listProdutos': listProdutos, 'produtosAPI': produtosAPI})
 
 def ConsumoCEP(request, numeroCEP):
     apiCEP = request.get("https://viacep.com.br/ws/" + numeroCEP)

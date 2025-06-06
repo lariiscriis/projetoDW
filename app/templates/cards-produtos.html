@@ -10,8 +10,13 @@
 
 {% block conteudo %}
 
-<section class="py-5" id="Section-posts">
-<h1>Produtos</h1>
+  <nav class="menu">
+    <a href="#" data-section="cadastrados">Produtos Personalizados</a>
+    |
+    <a href="#" data-section="internacionais">Produtos Internacionais</a>
+  </nav>
+
+<section class="py-5 section" id="cadastrados">
 <div class="container" id="blog-container">
     <!-- for para loop dos posts entra aqui  -->
      {% for produto in listProdutos %}
@@ -53,9 +58,68 @@
     </div> 
     <!-- for para loop dos posts termina aqui -->
     {% endfor %}
-
-
-    
 </div>
 </section>
+
+<section class="py-5 section" id="internacionais">
+<div class="container" id="blog-container">
+
+{% for p in produtosAPI %}
+    <div class="blog-card">
+        <div class="blog-image">
+            <img src="{{ p.image }}" alt="Card-imagem">
+            <div class="blog-data"><i class="far fa-heart"></i></div>
+        </div>
+        <div class="blog-content">
+            <div class="blog-price">
+            <h2 class="blog-title">{{p.title}}</h2>
+            <p href="#" class="precoProduto">{{p.price}}</p>
+        </div>
+            <p class="blog-description">
+                {{p.description}}
+            </p>
+            <div class="blog-categoria">
+                <span><strong>Categoria:</strong>
+                {% if p.category %}
+                        {{ p.category }}
+                    {% else %}
+                        Sem categoria
+                    {% endif %}
+                </span>
+            </div>
+        <div class="blog-footer">
+            <div class="author-image">
+            <span class="blog-author">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+            </span>
+            </div>
+        </div>
+    </div>
+    </div> 
+{% endfor %}
+</div>
+</section>
+
+<script>
+    const links = document.querySelectorAll('.menu a');
+    const sections = document.querySelectorAll('.section');
+
+    links.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        sections.forEach(section => section.classList.remove('active'));
+
+        const targetId = link.getAttribute('data-section');
+        document.getElementById(targetId).classList.add('active');
+      });
+    });
+
+    document.getElementById('cadastrados').classList.add('active');
+  </script>
+
 {% endblock %}
