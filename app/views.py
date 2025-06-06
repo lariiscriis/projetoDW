@@ -19,7 +19,7 @@ import requests
 
 def exibirUsuarios(request):
     if not request.session.get("email"):
-        return redirect("app")
+        return redirect("login")
 
     usuarios = Usuario.objects.all().values()
     return render(request, "usuarios.html", {'listUsuarios': usuarios})
@@ -59,6 +59,9 @@ def login(request):
     return render(request, "login.html", {'form': frmLogin})
 
 def logout(request):
+    if not request.session.get("email"):
+        messages.warning(request, 'Você precisa fazer login para fazer logout.')
+        return redirect("login")
     request.session.flush()
     messages.info(request, "Logout realizado com sucesso.")
     return redirect("login")
@@ -68,7 +71,7 @@ def dashboard(request):
     tempo_sessao = request.session.get("tempo_sessao_segundos")
     if _email is None:
             messages.warning(request, 'Você precisa fazer login para acessar o dashboard.')
-            return render(request, "index.html")
+            return redirect("login")
     if tempo_sessao and tempo_sessao > timedelta(seconds=600).total_seconds():
         messages.warning(request, 'Sua sessão expirou. Por favor, faça login novamente.')
         return render(request, "index.html")
@@ -106,6 +109,9 @@ def addUsuario(request):
 
 
 def excluirUsuario(request, id_usuario):
+    if not request.session.get("email"):
+        messages.warning(request, 'Você precisa fazer login para excluir usuarios.')
+        return redirect("login")
     usuario = Usuario.objects.get(id=id_usuario)
     usuario.delete()
     messages.success(request, 'Usuário excluído com sucesso!')
@@ -113,6 +119,9 @@ def excluirUsuario(request, id_usuario):
 
 
 def editarUsuario(request, id_usuario):
+    if not request.session.get("email"):
+        messages.warning(request, 'Você precisa fazer login para editar usuario.')
+        return redirect("login")
     usuario = Usuario.objects.get(id=id_usuario)
     email_antigo = usuario.email
     formUser = formUsuario(request.POST or None, instance=usuario)
@@ -161,6 +170,9 @@ def listarProdutos(request):
     return render(request, "listar-produtos.html", {'listProdutos': listProdutos})
 
 def excluirProduto(request, id_produto):
+    if not request.session.get("email"):
+        messages.warning(request, 'Você precisa fazer login para excluir produtos.')
+        return redirect("login")
     produto = Produto.objects.get(id=id_produto)
     produto.delete()
     messages.success(request, 'Produto excluído com sucesso!')
@@ -168,6 +180,9 @@ def excluirProduto(request, id_produto):
 
 
 def editarProduto(request, id_produto):
+    if not request.session.get("email"):
+        messages.warning(request, 'Você precisa fazer login para editar produtos.')
+        return redirect("login")
     produto = Produto.objects.get(id=id_produto)
     formProd = formProduto(request.POST or None, instance=produto)
 
