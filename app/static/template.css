@@ -257,6 +257,30 @@ input::placeholder {
 input:focus{
     transform: scale(1.05);
     transition: transform 0.3s ease-in-out;
+    outline: none;
+}
+
+.categoria{
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 4px solid var(--rosa1);
+    border-radius: 10px;
+    text-align: center;
+    font-size: 1rem;
+    color: var(--rosa2);
+    background-color: #fce7e1;
+    font-family: "Poppins", serif;
+    font-weight: 600;
+    outline: none;
+}
+
+.categoria:focus{
+    transform: scale(1.05);
+    transition: transform 0.3s ease-in-out;
+    color: var(--rosa2);
+    background-color: #fce7e1;
+    outline: none;
 }
 
 #btnCadastrar{
@@ -278,6 +302,8 @@ input:focus{
     font-family: "Poppins", sans-serif;
     transition: all .8s;
 }
+
+
 
 #btnExcluir{
     background-color: #f86365d8 !important;
@@ -345,6 +371,7 @@ a {
     color: #FF9394;
 }
 .menu a{
+    transition: all .8s;
     text-decoration: none;
     color: #FF9394;
     text-shadow:

@@ -5,10 +5,18 @@
 {% block 'titulo' %} Cadastrar Produto {% endblock %}
 
 {% block conteudo %}
-<a href="{% url 'dashboard' %}"><button id="btnVoltar" class="btn ">Voltar</button></a>
+<a href="{% url 'listarProdutos' %}"><button id="btnVoltar" class="btn ">Voltar</button></a>
 
-<div class="container mt-5 d-flex align-items-center justify-content-center" >
-    <form method="POST" id="ContainerLogin" enctype="multipart/form-data">
+<div class="container mt-5 d-flex align-items-center justify-content-center" id="ContainerLogin">
+    <div class="col-md-6 d-none d-md-block text-center">
+      <img src="{% static 'assets/ursinhos3.png' %}" alt="Ursinho fofo" class="img-fluid rounded login-imagem">
+    </div> 
+   <div class="card" style="background-color: #f9ebc9ca; padding: 20px; border: none;">
+     <div class="text-center">
+          <img src="{% static 'assets/users.png' %}" alt="Ícone de login" width="60" class="mb-2">
+          <h2 id="h1Usuarios" class="mb-4">Editar Produto</h2>
+        </div>    
+    <form method="POST"  enctype="multipart/form-data">
         {% csrf_token %}
         <div class="form-group">
         {{ form.as_p }}
@@ -16,6 +24,8 @@
 
         <input type="submit" value="Editar"  id="btnCadastrar">
     </form>
+</div>
+
 </div>
 
 

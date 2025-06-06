@@ -51,7 +51,7 @@ class formProduto(forms.ModelForm):
             'precoProduto': forms.NumberInput(attrs={'class': 'form-control mb-3', 'placeholder': 'Preço'}),
             'imagemProduto': forms.FileInput(attrs={'class': 'form-control mb-3', 'placeholder': 'descrição' }),
             'qtdeEstoque': forms.NumberInput(attrs={'class': 'form-control mb-3', 'placeholder': 'Produto em estoque' }),
-            'categoria': forms.Select(attrs={'class': 'form-control mb-3','placeholder': 'Categoria'}),
+            'categoria': forms.Select(attrs={'class': 'form-control mb-3 categoria','placeholder': 'Categoria'}),
         } 
 
 
